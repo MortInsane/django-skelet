@@ -1,0 +1,25 @@
+version: "3"
+
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: WEB_mort_insane
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/usr/src/app
+
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    container_name: NGINX_mort_insane
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+    volumes:
+      - ./static/:/static/
